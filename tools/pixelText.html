@@ -1,0 +1,80 @@
+<html>
+<head>
+	<style>
+		.pixel{width: 20px;height:20px;background-color:#fff;border-width: 1px}
+		.num{width: 100px;}
+	</style>
+</head>
+<body>
+	<h3>Python Arcade Tools</h3>
+	x=<input type=number id='x' class='num' value=5> y=<input type=number id='y' class='num' value=5>
+	<input type=button value="create pixels" id='create' onclick="createPixels()">
+	<br><br>
+	<div id=pixelBox>
+	<input type=button class='pixel' id=0-0>
+	</div>
+	<br>
+	<input type=button value="print texts" id='create' onclick="printTexts()">
+
+</body>
+	<script>
+		var clickReact=function(){
+			if(this.light){
+				this.light=false
+				this.style.background='#fff'
+			}else{
+				this.light=true
+				this.style.background='#f00'
+			}
+		}
+
+		var createPixels=function(){
+			x=document.getElementById('x').value
+			y=document.getElementById('y').value
+			if(x<1 || y<1){
+				console.log(" error : x & y must > 0")
+				return 0 
+			}
+
+			pixelBox=document.getElementById("pixelBox")
+			pixelBox.innerHTML=''
+			 
+			for(j=0;j<y;j++){
+				for(i=0;i<x;i++){
+					pixelBox.innerHTML+="<input type=button class='pixel' id="+i+"-"+j+">"
+				}
+				pixelBox.innerHTML+='<br>'
+			}
+
+			pixels=document.getElementsByClassName('pixel')
+
+			for(i=0;i<pixels.length;i++){
+				pixels[i].style.background='#fff'
+				pixels[i].light=false
+				pixels[i].addEventListener("click",clickReact)
+			}
+		}
+
+		createPixels()
+
+		var printTexts= function(){
+			x=document.getElementById('x').value
+			y=document.getElementById('y').value
+			var pixelTexts = ''
+			for(j=0;j<y;j++){
+				pixelTexts+='b"'
+				for(i=0;i<x;i++){
+					var light=document.getElementById(i+'-'+j).light
+					if(light){
+						pixelTexts+='1'
+					}else{
+						pixelTexts+=' '
+					}
+				}
+				pixelTexts+='"\n'
+			}
+			console.log(pixelTexts)
+
+		}
+	</script>
+</html>
